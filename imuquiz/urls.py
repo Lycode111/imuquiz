@@ -22,7 +22,12 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('quizzes.urls',namespace='quizzes')),
+    #user accounts (registration + login)
+    path('accounts/', include('accounts.urls', namespace = 'acounts')),
+
+    #empty urls should go below since it routes inside first
+    #pattern matching --> specific to most general
+    path('', include('quizzes.urls',namespace='quizzes')),
 ]
 
 #static file??
