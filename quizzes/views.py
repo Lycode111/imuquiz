@@ -8,6 +8,7 @@ from results.models import Result
 def is_ajax(request):
     return request.headers.get('X-Requested-With') == 'XMLHttpRequest'
 #?? part 2
+
 class QuizListView(ListView):
     model = Quiz
     template_name = 'quizzes/main.html'
