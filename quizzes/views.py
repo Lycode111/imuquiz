@@ -108,7 +108,7 @@ def register_view(request):
     context = {
         'form': form
     }
-    return render(request, 'quizzes:register', context)
+    return render(request, 'quizzes/register.html', context)
 
 def login_view(request):
     if request.user.is_authenticated:
