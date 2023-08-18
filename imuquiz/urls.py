@@ -22,7 +22,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('quizzes.urls',namespace='quizzes')),
+    path('', include('quizzes.urls',namespace='quizzes')),
+    
 ]
 
 #static file??
