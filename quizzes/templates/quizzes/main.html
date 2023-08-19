@@ -16,13 +16,13 @@ home
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Start?</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body" id="modal-body-confirm"></div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
           <button type="button" id ="start-button" class="btn btn-success">yes</button>
         </div>
       </div>
@@ -30,8 +30,32 @@ home
   </div>
   <div class="h1">Quiz list</div>
 <hr>
-{% for obj in object_list %}
-    <button
+<div class="row my-5" align-items-center justify-content-center>
+  {% for obj in object_list %}
+    <div class = "col-8 col-lg-4 col-xl-3">
+      <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body text-center py-4">
+          <h5 class="card-title">{{obj.name}}</h5>
+          <p class="card-text">The total score required to pass will be {{obj.required_score_to_pass}}. Are you ready?</p>
+          <button
+            class="btn btn-outline-primary btn-lg mt-3 modal-button"
+            data-pk = "{{obj.pk}}"
+            data-quiz = "{{obj.name}}"
+            data-questions = "{{obj.number_of_questions}}"
+            data-difficulty = "{{obj.difficluty}}"
+            data-time = "{{obj.time}}"
+            data-pass = "{{obj.required_score_to_pass}}"
+            data-bs-toggle = "modal"
+            data-bs-target = "#quizStartModal">
+            START
+          </button>
+          <br/>
+        </div>
+      </div>
+    </div>
+    
+    <!-- <button
         class="btn btn-link modal-button"
         data-pk = "{{obj.pk}}"
         data-quiz = "{{obj.name}}"
@@ -39,10 +63,11 @@ home
         data-difficulty = "{{obj.difficluty}}"
         data-time = "{{obj.time}}"
         data-pass = "{{obj.required_score_to_pass}}"
-        data-toggle = "modal"
-        data-target = "#quizStartModal">
+        data-bs-toggle = "modal"
+        data-bs-target = "#quizStartModal">
         {{obj.name}}
-    </button>
+    </button> -->
 
 {% endfor %}
+</div>
 {% endblock content %}

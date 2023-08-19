@@ -4,26 +4,49 @@
 {% block content %}
 
 <div class = "col-md-6 offset-md-3">
-	<h1>Registration</h1>
-	<br/>
-	<form method = "POST" action = "">
-        {% csrf_token %}
-        {% if form.errors %}
-			<div class="alert alert-warning alert-dismissible fade show" role="alert">
-				Your Form Has errors
-				{% for field in form %}
-					{% if field.errors %}
-						{{ field.errors }}
-					{% endif %}
-				{% endfor %}
-				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-			</div>
-		{% endif %}
-		{{ form.as_p }}
-
-        <br/>
-        <button type="submit" class="btn btn-secondary">Sign Up</button>
-    </form>
+	<div class="card"
+    style="
+        width: 600px;
+        margin-top: auto;
+        margin-bottom: auto;
+        background: #ccd3e6;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        border-radius: 5px;" >
+		<div class="d-flex justify-content-center">
+			<h1>Registration</h1>
+			<br/>
+		</div>
+		<div class="d-flex justify-content-center">
+			<form method = "POST" action = "">
+				{% csrf_token %}
+				{% if form.errors %}
+					<div class="alert alert-warning alert-dismissible fade show" role="alert">
+						Your Form Has errors
+						{% for field in form %}
+							{% if field.errors %}
+								{{ field.errors }}
+							{% endif %}
+						{% endfor %}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				{% endif %}
+				{{ form.as_p }}
+		
+				<br/>
+				<div class="d-flex justify-content-center">
+					<button type="submit" class="btn btn-secondary">Sign Up</button>
+					<br/>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 
 
