@@ -11,6 +11,8 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import RegisterForm
 
 # Create your views here.
+     
+
 def is_ajax(request):
     return request.headers.get('X-Requested-With') == 'XMLHttpRequest'
 #?? part 2
@@ -111,6 +113,9 @@ def register_view(request):
     return render(request, 'quizzes/register.html', context)
 
 def login_view(request):
+    if 'next' in request.GET:
+        messages.info(request, 'You need to be logged in! Please try again!')
+
     if request.user.is_authenticated:
         return redirect('quizzes:main-view')
     else:

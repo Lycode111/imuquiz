@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth.decorators import login_required
 from .views import (
     QuizListView,
     quiz_view,
@@ -22,6 +23,6 @@ urlpatterns = [
     path('<pk>/save/', save_quiz_view, name='save-view'),
 
     #most general urls should be at the bottom
-    path('',QuizListView.as_view(),name='main-view'),
+    path('', login_required(QuizListView.as_view(), login_url="quizzes:login"),name='main-view'),
     
 ]
