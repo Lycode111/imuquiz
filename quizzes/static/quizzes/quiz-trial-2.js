@@ -207,7 +207,7 @@ const loadQuestions = () => {
         }
     }
 
-    //index
+    //index button
 
     // if (questionNo == (question_set.length - 1)) {
     //     hideItems(nextBtn)
@@ -246,7 +246,7 @@ const sendData = () => {
 const endQuiz = () => {
     questionIndex.innerHTML = ""
     data['csrfmiddlewaretoken'] = csrf[0].value
-    console.log(data)
+    
     $.ajax({
         type: 'POST',
         url: `${url}save/`,
