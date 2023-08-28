@@ -128,7 +128,7 @@ const sendData = () => {
                         resDiv.classList.add('bg-danger')
                     }
                     else{
-                        const answer = resp['Answered']
+                        const answer = resp['answered']
                         const correct = resp['correct_answer']
 
                         if (answer == correct){
