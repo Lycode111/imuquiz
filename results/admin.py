@@ -1,6 +1,10 @@
 from django.contrib import admin
-from .models import Result
+from .models import Result, Analysis
+
 # Register your models here.
 
 # This allows you to manage the Result model through the admin interface
 admin.site.register(Result)
+admin.site.register(Analysis)
+
+
