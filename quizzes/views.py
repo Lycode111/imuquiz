@@ -3,7 +3,7 @@ from .models import Quiz
 from django.views.generic import ListView
 from django.http import JsonResponse
 from questions.models import Question,Answer
-from results.models import Result,Analysis
+from results.models import Result,Analysis,UserResult
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -50,15 +50,14 @@ def save_quiz_view(request, pk):
             question = Question.objects.get(text=k)
             questions.append(question)
         
-        questions = Question.objects.all()
-        all_questions = [question.text for question in questions]
+        questions_ = Question.objects.all()
+        all_questions = [question.text for question in questions_]
         user = request.user
         quiz = Quiz.objects.get(pk=pk)
 
         score = 0 
         multiplier = 100 / quiz.number_of_questions
         results = []
-        total_questions=[]
         got_correct_answer=[]
         correct_answer = None
 
@@ -84,6 +83,12 @@ def save_quiz_view(request, pk):
         score_ = score * multiplier
         Result.objects.create(quiz= quiz, user=user, score=score_)
         Analysis.objects.create(quiz= quiz, user=user, total_questions=all_questions, correct_questions=got_correct_answer)
+        user_result, created = UserResult.objects.get_or_create(user=user, quiz=quiz)
+        # Update the existing UserResult object
+        user_result.score = score_
+        user_result.required_score = quiz.required_score_to_pass
+        print(user_result)
+        user_result.save()
 
         if score_ >= quiz.required_score_to_pass:
             return JsonResponse({'passed': True, 'score':score_, 'results':results})

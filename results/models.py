@@ -11,7 +11,7 @@ import json
 import ast
 from django.shortcuts import render
 # Create your models here.
-
+DEFAULT_VALUE = 1000
 class Result(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -27,6 +27,14 @@ class Analysis(models.Model):
     correct_questions=models.CharField(max_length=10000)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+
+class UserResult(models.Model):
+    id = models.AutoField(primary_key=True)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE,  related_name='quiz_results')
+    user = models.CharField(max_length=10000)
+    score = models.FloatField(default=DEFAULT_VALUE)
+    required_score = models.FloatField(default=DEFAULT_VALUE)
+     
 
 
 # class Analysis(models.Model):
