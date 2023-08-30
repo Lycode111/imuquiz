@@ -1,24 +1,82 @@
 
-import ast
+import json
 from django.shortcuts import render
-from .models import Analysis, UserResult
-
-def index(request):
+from .models import Analysis, UserResult, Result
+from quizzes.models import Quiz
+def index_bar(request):
     user = request.user
     score = []
     required_score =[]
     quiz = []
+    quiz = Quiz.objects.order_by('name').values('name').distinct()
+    print(quiz)
+    quiz_list = [item['name'] for item in quiz]
     trials = UserResult.objects.filter(user=user)
     for trial in trials:
         score.append(trial.score)
         required_score.append(trial.required_score)
-        quiz.append(str(trial.quiz))
     
-    return render(request,'quiz_view.html',{
-        'labels':quiz,
+    return render(request,'barchart.html',{
+        'labels':quiz_list,
         'data': score,
         'compare_data': required_score
     })
+
+def index_pie(request):
+    user = request.user
+    total_questions = 0
+    missed_question = 0
+    num_correct_answer = 0
+    num_wrong_answer = 0
+    trials = Analysis.objects.filter(user=user)
+    for trial in trials:
+        total_questions += trial.total_questions
+        missed_question += trial.skipped_questions
+        num_correct_answer += trial.correct_questions
+        num_wrong_answer += trial.wrong_questions
+    
+    data = [num_correct_answer,num_wrong_answer,missed_question]
+    labels = ["Corrrect Anwered",'Wrong Answered',"Not answered"]
+    return render(request,'piechart.html',{
+        'labels':labels,
+        'data': data,
+    })
+
+def index_line(request):
+    user = request.user
+    trials = Result.objects.filter(user=user)
+    quizzes = Quiz.objects.order_by('name').values('name').distinct()
+    print(quizzes)
+    quizzes_list = [item['name'] for item in quizzes]
+    print(quizzes_list)
+    data=[]
+    user_trial2 = []
+    
+    for quiz in quizzes_list:
+        num = 1
+        score=[0]
+        user_trial=[0]
+        for trial in trials:
+            print(trial.quiz)
+            if  trial.quiz == quiz:
+                print("hello")
+                score.append(trial.score) 
+                user_trial.append(num)
+                num+=1
+
+        if len(user_trial) > len(user_trial2):
+            user_trial2 = user_trial
+                
+        x = {
+            'label': quiz,
+            'data' : score
+        }
+        data.append(x)
+        print(data)
+
+    return render(request, 'linegraph.html', 
+                  {'data': json.dumps(data),
+                   'trial': user_trial2})
 
 # def index(request):
 #     user = request.user

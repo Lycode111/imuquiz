@@ -33,6 +33,20 @@
     -webkit-text-stroke: 1px;
     text-shadow: 5px 5px 0px lightsteelblue;
   }
+
+.title1-css {
+    font-family: 'Arial Black';
+    font-size: 3rem;
+    text-shadow: -15px 5px 20px #ced0d3;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: white;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px;
+    text-shadow: 2px 5px 0px lightsteelblue;
+}
   
 .btn {
     border-width: 1.6px; 

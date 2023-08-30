@@ -49,16 +49,17 @@ def save_quiz_view(request, pk):
         for k in data_.keys():
             question = Question.objects.get(text=k)
             questions.append(question)
-        
-        questions_ = Question.objects.all()
-        all_questions = [question.text for question in questions_]
+    
+        num_all_questions = len(questions)
         user = request.user
         quiz = Quiz.objects.get(pk=pk)
-
         score = 0 
         multiplier = 100 / quiz.number_of_questions
         results = []
         got_correct_answer=[]
+        missed_question = 0
+        num_correct_answer = 0
+        num_wrong_answer = 0
         correct_answer = None
 
         for q in questions:
@@ -71,29 +72,41 @@ def save_quiz_view(request, pk):
                         if a.correct:
                             score += 1
                             correct_answer = a.text
-                            got_correct_answer.append(q.text)
+                            num_correct_answer += 1
                             
                     else:
                         if a.correct:
                             correct_answer = a.text
+                            num_wrong_answer +=1
                     
                 results.append({str(q):{'correct_answer': correct_answer,'answered': a_selected}})
             else:
                 results.append({str(q): 'not answered'})
+                missed_question += 1
+
         score_ = score * multiplier
-        Result.objects.create(quiz= quiz, user=user, score=score_)
-        Analysis.objects.create(quiz= quiz, user=user, total_questions=all_questions, correct_questions=got_correct_answer)
+        Result.objects.create(quiz= quiz.name, user=user, score=score_)
+
+        user_analysis, created = Analysis.objects.get_or_create(user=user, quiz=quiz)
+        # Update the existing UserResult object
+        user_analysis.total_questions=num_all_questions
+        user_analysis.correct_questions=num_correct_answer
+        user_analysis.wrong_questions = num_wrong_answer
+        user_analysis.skipped_questions= missed_question
+        user_analysis.save()
+
+
         user_result, created = UserResult.objects.get_or_create(user=user, quiz=quiz)
         # Update the existing UserResult object
         user_result.score = score_
         user_result.required_score = quiz.required_score_to_pass
-        print(user_result)
         user_result.save()
 
         if score_ >= quiz.required_score_to_pass:
             return JsonResponse({'passed': True, 'score':score_, 'results':results})
         else:
             return JsonResponse({'passed':False, 'score':score_, 'results':results})
+        
 
 
 #registration related function views

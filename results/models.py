@@ -13,18 +13,19 @@ from django.shortcuts import render
 # Create your models here.
 DEFAULT_VALUE = 1000
 class Result(models.Model):
-    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    quiz = models.CharField(max_length=1000)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     score = models.FloatField()
      
-    # waht is pk?
     # for now only
     def __str__(self):
         return str(self.pk)
 
 class Analysis(models.Model):
-    total_questions= models.CharField(max_length=10000)
-    correct_questions=models.CharField(max_length=10000)
+    total_questions= models.IntegerField(default=DEFAULT_VALUE)
+    skipped_questions = models.IntegerField(default=DEFAULT_VALUE)
+    correct_questions=models.IntegerField(default=DEFAULT_VALUE)
+    wrong_questions=models.IntegerField(default=DEFAULT_VALUE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
 
