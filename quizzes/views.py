@@ -47,8 +47,10 @@ def save_quiz_view(request, pk):
         data_ = dict(data.lists())
         data_.pop('csrfmiddlewaretoken')
         for k in data_.keys():
-            question = Question.objects.get(text=k)
-            questions.append(question)
+            question = Question.objects.filter(text=k).first()
+            if question not in questions:
+                questions.append(question)
+        print(questions)
     
         num_all_questions = len(questions)
         user = request.user

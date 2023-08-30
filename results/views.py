@@ -24,23 +24,19 @@ def index_bar(request):
 
 def index_pie(request):
     user = request.user
-    total_questions = 0
-    missed_question = 0
-    num_correct_answer = 0
-    num_wrong_answer = 0
+    quizzes = []
     trials = Analysis.objects.filter(user=user)
     for trial in trials:
-        total_questions += trial.total_questions
-        missed_question += trial.skipped_questions
-        num_correct_answer += trial.correct_questions
-        num_wrong_answer += trial.wrong_questions
-    
-    data = [num_correct_answer,num_wrong_answer,missed_question]
+        data = {"correct":trial.correct_questions, "wrong": trial.wrong_questions,"missed":trial.skipped_questions}
+        quizzes.append(data)
+    print(quizzes)
+    for x in quizzes:
+        print(x['correct'])
     labels = ["Corrrect Anwered",'Wrong Answered',"Not answered"]
-    return render(request,'piechart.html',{
-        'labels':labels,
-        'data': data,
-    })
+    return render(request,'piechart.html',
+                 {'quizzes': quizzes,
+                  'labels' : labels})
+
 
 def index_line(request):
     user = request.user

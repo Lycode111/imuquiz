@@ -47,6 +47,17 @@
     -webkit-text-stroke: 1px;
     text-shadow: 2px 5px 0px lightsteelblue;
 }
+
+.chart-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.chart {
+    width: 30%;
+    height: 70vh;  /* Adjust as needed */
+}
   
 .btn {
     border-width: 1.6px; 
