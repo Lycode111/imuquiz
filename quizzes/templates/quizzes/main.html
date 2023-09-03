@@ -38,17 +38,15 @@ home
     <div class = "col-8 col-lg-4 col-sm-6 col-md-4 col-xl-3">
       <div class="card mb-4">
         {%if obj.name == "math" %}
-         <!-- <img src="https://quizizz.com/media/resource/gs/quizizz-media/quizzes/a658779d-153c-486c-9ca0-ceab16fa71c0" class="card-img-top" alt="..."> -->
-         <img src="images/maths.jpg" class="card-img-top" alt="...">
+         <img src="{% static 'media/maths.jpg' %}" class="card-img-top" alt="...">
          {% elif obj.name == "test" %}
-          <img src="https://fizzhum.com/uploads/unnamed.png" class="card-img-top" alt="...">
+          <img src="{% static 'media/science.webp' %}" class="card-img-top" alt="...">
         {% else %}
          <img src="" class="card-img-top" alt="...">
         {% endif %}
         
         <div class="card-body text-center py-4">
           <h5 class="card-title" style = "text-transform: capitalize;">{{obj.name}}</h5>
-          <!-- <p class="card-text">The total score required to pass will be {{obj.required_score_to_pass}}. Are you ready?</p> -->
           <button
             class="btn btn-outline-primary btn-lg mt-3 modal-button btn-color"
             data-pk = "{{obj.pk}}"
