@@ -11,7 +11,7 @@ home
 
 
 {% block header %}
-  <div class="d-flex justify-content-center align-content-center title-css">Quiz List</div>
+  <div class="d-flex justify-content-center align-content-center title1-css">Quiz List</div>
 {% endblock header %}
 
 {% block content %}
@@ -36,17 +36,11 @@ home
 <div class="row my-5 justify-content-center">
   {% for obj in object_list %}
     <div class = "col-8 col-lg-4 col-sm-6 col-md-4 col-xl-3">
-      <div class="card mb-4">
-        {%if obj.name == "Maths" %}
-         <img src="https://quizizz.com/media/resource/gs/quizizz-media/quizzes/a658779d-153c-486c-9ca0-ceab16fa71c0" class="card-img-top" alt="...">
-        {% elif obj.name == "test" %}
-          <img src="https://fizzhum.com/uploads/unnamed.png" class="card-img-top" alt="...">
-        {% else %}
-         <img src="" class="card-img-top" alt="...">
-        {% endif %}
+      <div class="card mb-2">
+        <img src= {{obj.image}} class="card-img-top" alt="...">
         
         <div class="card-body text-center py-4">
-          <h5 class="card-title" style = "text-transform: capitalize;">{{obj.name}}</h5>
+          <h2 class="card-title" style = "text-transform: capitalize;">{{obj.name}}</h2>
           <!-- <p class="card-text">The total score required to pass will be {{obj.required_score_to_pass}}. Are you ready?</p> -->
           <button
             class="btn btn-outline-primary btn-lg mt-3 modal-button btn-color"

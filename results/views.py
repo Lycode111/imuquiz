@@ -15,23 +15,23 @@ def index_bar(request):
     for trial in trials:
         score.append(trial.score)
         required_score.append(trial.required_score)
-    
     return render(request,'barchart.html',{
         'labels':quiz_list,
         'data': score,
         'compare_data': required_score
     })
 
+
 def index_pie(request):
     user = request.user
     quizzes = []
     trials = Analysis.objects.filter(user=user)
     for trial in trials:
-        data = {"correct":trial.correct_questions, "wrong": trial.wrong_questions,"missed":trial.skipped_questions}
+        quiz=trial.quiz
+        data = {"correct":trial.correct_questions, "wrong": trial.wrong_questions,"missed":trial.skipped_questions,"name":quiz.name}
         quizzes.append(data)
-    print(quizzes)
-    for x in quizzes:
-        print(x['correct'])
+
+  
     labels = ["Corrrect Anwered",'Wrong Answered',"Not answered"]
     return render(request,'piechart.html',
                  {'quizzes': quizzes,
@@ -73,6 +73,10 @@ def index_line(request):
     return render(request, 'linegraph.html', 
                   {'data': json.dumps(data),
                    'trial': user_trial2})
+
+def teaching_material(request):
+    model = Quiz
+    return render(request,'teaching_material.html')
 
 # def index(request):
 #     user = request.user

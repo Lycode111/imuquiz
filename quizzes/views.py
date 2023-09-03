@@ -50,7 +50,6 @@ def save_quiz_view(request, pk):
             question = Question.objects.filter(text=k).first()
             if question not in questions:
                 questions.append(question)
-        print(questions)
     
         num_all_questions = len(questions)
         user = request.user

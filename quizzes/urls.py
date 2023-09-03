@@ -9,7 +9,7 @@ from .views import (
     logout_view,
     register_view,
 )
-from results.views import index_bar, index_pie, index_line
+from results.views import index_bar, index_pie, index_line, teaching_material
 
 app_name = 'quizzes'
 
@@ -17,6 +17,8 @@ urlpatterns = [
     path('login/', login_view, name = "login"),
     path('logout/', logout_view, name = "logout"),
     path('register/', register_view, name = 'register'),
+
+    path('teaching material/', teaching_material ,name='teaching_material'),
 
     path('analysis/resultcomparison', index_bar ,name='index_bar'),
     path('analysis/quizanalysis', index_pie ,name='index_pie'),
