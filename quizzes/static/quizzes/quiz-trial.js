@@ -150,15 +150,6 @@ const stopTimer = () => {
 
 const loadQuestions = () => {
     hideItems(quizSubmitBtn)
-    for (let i = 0, element; i < question_set.length; i++) {
-        element = document.getElementById(`question-index-button-${i}`)
-        if (i === questionNo) {
-            element.classList.add("active")
-        }
-         else if (element.classList.contains("active")) {
-            element.classList.remove("active")
-         }
-    }
     
     let answer_set = null;
     let question_text = null;
@@ -204,6 +195,19 @@ const loadQuestions = () => {
             } 
         })
     }
+
+    //index button active/disabled view
+    for (let i = 0, element; i < question_set.length; i++) {
+        element = document.getElementById(`question-index-button-${i}`)
+        if (i === questionNo) {
+            element.classList.add("active")
+        }
+         else if (element.classList.contains("active")) {
+            element.classList.remove("active")
+        }
+    }
+
+    //index
 
     // if (questionNo == (question_set.length - 1)) {
     //     hideItems(nextBtn)

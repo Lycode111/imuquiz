@@ -32,6 +32,7 @@
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 1px;
     text-shadow: 5px 5px 0px lightsteelblue;
+<<<<<<< HEAD:static/style.css
   }
 
 .title1-css {
@@ -72,6 +73,11 @@
     background-color: #dadada; /* set the background color of the card to pitch color */
 }
 .btn {rgb(0, 0, 0)rgb(173, 173, 173)
+=======
+}
+  
+.btn {
+>>>>>>> 10df352114567d68bf99f196e88fdb81aeaeba3d:static/style/style.css
     border-width: 1.6px; 
     font-weight: 500; 
     padding: 8px 20px; 
@@ -87,6 +93,21 @@
     border-color: midnightblue;
     background-color: midnightblue;
     color: white;
+}
+
+.next-button-css, .save-button-css {
+    border-radius: 50%;
+    border-width: 3.5px solid;
+    width: 3em;
+    aspect-ratio: 1/1;
+    padding: 0em 1.6em;
+    margin: 10px;
+}
+.bi-arrow-right-css {
+    font-size: 36px;
+}
+.bi-check-css {
+    font-size: 30px;
 }
 
 .quiz-preview {
@@ -146,11 +167,11 @@
     aspect-ratio: 1 / 1;
 }
 
-input[type = "radio"] {
+.ans-css {
     display: none;
 }
 
-label {
+.ans-css + label {
     display: inline-block;
     width: 200px;
     position: relative;
@@ -163,10 +184,10 @@ label {
     align-items: center;
 }
 
-label:before {
+.ans-css + label::before {
     display: inline-block;
     content: "";
-    height: 23px;
+    height: 1.2em;
     aspect-ratio: 1 / 1;
     border: 3px solid midnightblue;
     border-radius: 50%;
@@ -174,12 +195,54 @@ label:before {
     margin-right: 50px;
 }
 
-input[type = "radio"]:checked + label {
+.ans-css:checked + label {
     background-color: midnightblue;
     color: white;
 }
 
-input[type = "radio"]:checked + label:before {
+.ans-css:checked + label::before {
     border: 7px solid white;
     background-color: midnightblue;
+}
+
+.quiz-correct-radio + label {
+    color: white;
+    background-color: #1e9b61;
+    border: 2px solid #198754;
+}
+
+.quiz-correct-radio + label::before {
+    border: 3px solid white;
+    background-color: #1e9b61;
+}
+
+.quiz-correct-radio:checked + label {
+    color: white;
+    background-color: #198754;
+    border: 2px solid #198754;
+}
+
+.quiz-correct-radio:checked + label::before {
+    border: 6px solid white;
+    background-color: #198754;
+} 
+
+.quiz-incorrect-radio + label, .quiz-incorrect-radio:checked + label {
+    color: white;
+    background-color: #dc3545;
+    border: 2px solid #dc3545;
+}
+
+.quiz-incorrect-radio + label::before {
+    border: 3px solid white;
+    background-color: #dc3545;
+}
+
+.quiz-incorrect-radio:checked + label::before {
+    border: 7px solid white;
+    background-color: #dc3545;
+}
+
+#quiz-form {
+    width: 100%;
 }

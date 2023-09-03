@@ -65,7 +65,6 @@ def save_quiz_view(request, pk):
 
         for q in questions:
             a_selected = request.POST.get(q.text)
-
             if a_selected != "":
                 question_answers = Answer.objects.filter(question=q)
                 for a in question_answers:
@@ -82,9 +81,14 @@ def save_quiz_view(request, pk):
                     
                 results.append({str(q):{'correct_answer': correct_answer,'answered': a_selected}})
             else:
-                results.append({str(q): 'not answered'})
+                question_answers = Answer.objects.filter(question=q)
+                for a in question_answers:
+                    if a.correct:
+                        correct_answer = a.text
+                # results.append({str(q): 'not answered'})
+                results.append({str(q): {'correct_answer': correct_answer,'answered': 'not answered'}})
                 missed_question += 1
-
+        
         score_ = score * multiplier
         Result.objects.create(quiz= quiz.name, user=user, score=score_)
 
