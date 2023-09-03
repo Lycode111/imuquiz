@@ -74,9 +74,7 @@ def index_line(request):
                   {'data': json.dumps(data),
                    'trial': user_trial2})
 
-def teaching_material(request):
-    model = Quiz
-    return render(request,'teaching_material.html')
+
 
 # def index(request):
 #     user = request.user
