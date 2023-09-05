@@ -32,7 +32,6 @@
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 1px;
     text-shadow: 5px 5px 0px lightsteelblue;
-<<<<<<< HEAD:static/style.css
   }
 
 .title1-css {
@@ -67,17 +66,28 @@
 .card-title {
     height: 30px;
   }
+
+.download-button {
+    margin-top:-30px;
+    margin-bottom: 10px; /* Add 20px of space below the button */
+    padding: 5px 5px; /* Add some padding to the button */
+    background-color: #f1f1f1; /* Set the background color of the button */
+    color: rgb(0, 0, 0); /* Set the text color of the button */
+    border: 2px solid rgb(0, 0, 0); /* Remove the border from the button */
+    cursor: pointer; /* Change the cursor to a pointer when hovering over the button */
+}
+
+.download-button:hover {
+    background-color: #575857;/* Change the background color of the button when hovering */
+    color: rgb(255, 255, 255); 
+}
+
 .card {
     background-image: url('https://th.bing.com/th/id/OIP.sApBySYOMmSGWbbDE1qJJgHaH5?pid=ImgDet&rs=1'); /* set the background image of the card to a pattern */
     background-repeat: repeat; /* repeat the pattern */
     background-color: #dadada; /* set the background color of the card to pitch color */
 }
 .btn {rgb(0, 0, 0)rgb(173, 173, 173)
-=======
-}
-  
-.btn {
->>>>>>> 10df352114567d68bf99f196e88fdb81aeaeba3d:static/style/style.css
     border-width: 1.6px; 
     font-weight: 500; 
     padding: 8px 20px; 
