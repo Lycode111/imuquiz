@@ -2,9 +2,57 @@
     display: none;
 }
 
-.navbar-css {   
-    height: 65px;
-    font-size: 17px;
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.body-image-container {
+    flex: 1;
+    background-color: green;
+    background-image: url('../media/7227163.jpg');
+    background-attachment: fixed;
+    background-size: cover; 
+    overflow: auto;
+}
+
+.body-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    /* position:absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0; */
+    background-color: rgba(255, 255, 255, 0.8);
+
+}
+
+.navbar-css {
+    font-size: 1.4rem;
+}
+
+.nav-main-link {
+    position: relative;
+}
+.nav-main-link::after {
+    content: '';
+    display: inline-block;
+    opacity: 0;
+    transition: all 0.2;
+    height: 2px;
+    width: 100%;
+    background-color: midnightblue;
+    position: absolute;
+    bottom: 1px;
+    left: 0;
+}
+
+.nav-main-link:hover::after {
+    opacity: 1;
 }
 
 .navbar-brand {
@@ -15,37 +63,23 @@
 }
 
 .header-css {
+    flex: 0 1 auto;
     background-color: midnightblue;
     position: relative;
-    top: -9px;
-    padding: 40px 0px;
+    top: -9px;  
+    padding: 20px 0px;
 }
 
 .title-css {
     font-family: 'Arial Black';
-    font-size: 4rem;
-    text-shadow: -15px 5px 20px #ced0d3;
+    font-size: 3.5rem;
     padding-bottom: 10px;
     letter-spacing: 0.02em;
     text-align: center;
     color: white;
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 1px;
-    text-shadow: 5px 5px 0px lightsteelblue;
-  }
-
-.title1-css {
-    font-family: 'Arial Black';
-    font-size: 3rem;
-    text-shadow: -15px 5px 20px #ced0d3;
-    padding-bottom: 0px;
-    padding-top: 0px;
-    letter-spacing: 0.02em;
-    text-align: center;
-    color: white;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 1px;
-    text-shadow: 2px 5px 0px lightsteelblue;
+    text-shadow: 4px 4px 0px lightsteelblue;
 }
 
 .chart-container {
@@ -128,7 +162,8 @@
     width: 350px;
     margin-top: auto;
     margin-bottom: auto;
-    background: #a5b8b9;
+    /* background: #a5b8b9; */
+    background-color: rgb(244, 244, 244);
     position: relative;
     display: flex;
     justify-content: center;
@@ -137,7 +172,7 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .quiz-card {
