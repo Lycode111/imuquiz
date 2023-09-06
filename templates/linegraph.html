@@ -8,7 +8,7 @@
 
 {% block content %}
 
-<div style="display: block; margin: 0 auto; width: 70%;">
+<div style="display: block; margin: 0 auto; width: 70%; height: 490px;">
         <canvas id="myChart"></canvas> <!-- Canvas for your chart --> 
 </div>
 
@@ -80,6 +80,9 @@
             }
         }
       },
+
+        maintainAspectRatio: false,
+
         animation: {
             duration: 2000,
             easing: 'easeInOutCubic'

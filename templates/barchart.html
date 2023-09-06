@@ -7,7 +7,7 @@
 
 
 {% block content %} 
-<div style="display: block; margin: 0 auto; width: 70%;">
+<div style="display: block; margin: 0 auto; width: 70%; height: 490px;">
         <canvas id="myChart"></canvas> <!-- Canvas for your chart --> 
 </div>
 
@@ -81,7 +81,9 @@ new Chart(ctx, {
             }
         }
       },
-      
+
+      maintainAspectRatio: false,
+
       animation: { // add an animation option
           duration: 2000, // set the duration to 2000 milliseconds
           easing: 'easeInOutBounce' // set the easing to 'easeInOutBounce'
