@@ -94,8 +94,6 @@ const loadQuestions = () => {
             saveQuiz()
         })
     })
-
-    sendData()
 }
 
 const sendData = () => {
@@ -103,12 +101,12 @@ const sendData = () => {
 
     //check which is clicked(question)
     elements.forEach(el=>{
-        console.log("checking send data")
-        console.log(el)
-        console.log(el.checked)
         if (el.checked){
             data[el.name] = el.value
             checkedAns[`${el.name}-checked`] = el.value
+            console.log("checking send data")
+            console.log(data)
+            console.log(checkedAns)
         } else {
             if (!data[el.name]){
                 data[el.name] = null
@@ -126,9 +124,7 @@ const endQuiz = () => {
         url: `${url}save/`,
         data: data,
         success: function(response){
-            console.log(response)
             const results = response.results
-            console.log(results)
             quizForm.classList.add('not-visible')
 
             scoreBox.innerHTML = `
@@ -138,13 +134,8 @@ const endQuiz = () => {
             `
 
             results.forEach(res=>{
-                console.log("check for res")
-                console.log(res)
                 const resDiv = document.createElement("div")
                 for (const [question, resp] of Object.entries(res)){
-                    console.log(question)
-                    console.log(resp)
-                    console.log('********')
 
                     // const initialClass = ['d-flex', 'justify-content-center']
                     // resDiv.classList.add(...initialClass)
@@ -191,7 +182,7 @@ quizSubmitBtn.addEventListener('click', (event) =>{
 
 nextBtn.addEventListener('click', (event) => {
     event.preventDefault();
-    sendData();
+    console.log("in next")
     questionNo++;
     quizAnswer.innerHTML = ''
     loadQuestions();
@@ -231,7 +222,6 @@ const saveQuiz = () => {
                                     el.nextElementSibling.classList.add('radio-btn-correct')
                                 } else if (el.value === resp['answered']) {
                                     el.nextElementSibling.classList.add('radio-btn-incorrect')
-                                    console.log(el.nextElementSibling)
                                 }
                             }
                         }
