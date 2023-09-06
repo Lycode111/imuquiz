@@ -47,8 +47,11 @@ def save_quiz_view(request, pk):
         data_ = dict(data.lists())
         data_.pop('csrfmiddlewaretoken')
         for k in data_.keys():
-            question = Question.objects.get(text=k)
-            questions.append(question)
+            question = Question.objects.filter(text=k).first()
+            explanation = Question.objects.filter(text=k).first().explanation
+            video = Question.objects.filter(text=k).first().video
+            if question not in questions:
+                questions.append(question)
 
         user = request.user
         quiz = Quiz.objects.get(pk=pk)
@@ -84,9 +87,9 @@ def save_quiz_view(request, pk):
         Result.objects.create(quiz= quiz, user=user, score=score_)
 
         if score_ >= quiz.required_score_to_pass:
-            return JsonResponse({'passed': True, 'score':score_, 'results':results})
+            return JsonResponse({'passed': True, 'score':score_, 'results':results, 'video':video, 'explanation':explanation})
         else:
-            return JsonResponse({'passed':False, 'score':score_, 'results':results})
+            return JsonResponse({'passed':False, 'score':score_, 'results':results, 'video':video, 'explanation':explanation})
 
 
 #registration related function views

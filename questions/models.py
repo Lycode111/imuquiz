@@ -10,6 +10,8 @@ class Question(models.Model):
     #models functions
     #can add to quiz to know when is the quiz created
     created = models.DateTimeField(auto_now_add=True)
+    explanation = models.CharField(max_length=1000, blank=True)
+    video = models.URLField(max_length=200, blank=True)
 
     #return text
     def __str__(self):
