@@ -56,6 +56,7 @@ def save_quiz_view(request, pk):
         user = request.user
         quiz = Quiz.objects.get(pk=pk)
         score = 0 
+        num_all_questions = quiz.number_of_questions
         multiplier = 100 / quiz.number_of_questions
         results = []
         got_correct_answer=[]
