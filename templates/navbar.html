@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-light mb-2 navbar-css">
+<nav class="navbar navbar-expand-lg bg-light mb-2 navbar-css" id="navbar-main">
     <div class="container-fluid">
       <a class="navbar-brand mb-0 h1">
         <div>IMU</div>
@@ -9,19 +9,19 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link nav-main-link active" aria-current="page" href="{% url 'quizzes:main-view'%}">Home</a>
+            <a class="nav-link nav-main-link" aria-current="page" href="{% url 'quizzes:main-view'%}" id="home">Home</a>
           </li>
 
           {% if user.is_authenticated %}
           <li class="nav-item">
-            <a class="nav-link nav-main-link" href="{% url 'quizzes:logout' %}">Logout</a>
+            <a class="nav-link nav-main-link" href="{% url 'quizzes:logout' %}" id="logout">Logout</a>
           </li>
           {% else %}
           <li class="nav-item">
-            <a class="nav-link nav-main-link" href="{% url 'quizzes:login' %}">Login</a>
+            <a class="nav-link nav-main-link" href="{% url 'quizzes:login' %}" id="login">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link nav-main-link" href="{% url 'quizzes:register' %}">Register</a>
+            <a class="nav-link nav-main-link" href="{% url 'quizzes:register' %}" id="register">Register</a>
           </li>
           {% endif %}
         </ul>

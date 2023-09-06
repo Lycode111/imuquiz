@@ -37,18 +37,18 @@
 
 .nav-main-link {
     position: relative;
+    display: inline-block;
 }
 .nav-main-link::after {
     content: '';
-    display: inline-block;
-    opacity: 0;
-    transition: all 0.2;
     height: 2px;
     width: 100%;
     background-color: midnightblue;
     position: absolute;
     bottom: 1px;
     left: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
 }
 
 .nav-main-link:hover::after {
@@ -67,13 +67,13 @@
     background-color: midnightblue;
     position: relative;
     top: -9px;  
-    padding: 20px 0px;
+    padding: 17px 0px;
 }
 
 .title-css {
     font-family: 'Arial Black';
-    font-size: 3.5rem;
-    padding-bottom: 10px;
+    font-size: 3rem;
+    padding-bottom: 8px;
     letter-spacing: 0.02em;
     text-align: center;
     color: white;

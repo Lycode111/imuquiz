@@ -33,8 +33,37 @@ home
   </div>
  
 <hr>
-<div class="row my-5 justify-content-center">
+<div class="row my-5 px-5 justify-content-center">
   {% for obj in object_list %}
+    <div class = "col-8 col-lg-4 col-sm-6 col-md-4 col-xl-3">
+      <div class="card mb-4">
+        {%if obj.name == "math" %}
+         <img src="{% static 'media/maths.jpg' %}" class="card-img-top" alt="...">
+         {% elif obj.name == "test" %}
+          <img src="{% static 'media/science.webp' %}" class="card-img-top" alt="...">
+        {% else %}
+         <img src="" class="card-img-top" alt="...">
+        {% endif %}
+        
+        <div class="card-body text-center py-4">
+          <h5 class="card-title" style = "text-transform: capitalize;">{{obj.name}}</h5>
+          <button
+            class="btn btn-outline-primary btn-lg mt-3 modal-button btn-color"
+            data-pk = "{{obj.pk}}"
+            data-quiz = "{{obj.name}}"
+            data-questions = "{{obj.number_of_questions}}"
+            data-difficulty = "{{obj.difficluty}}"
+            data-time = "{{obj.time}}"
+            data-pass = "{{obj.required_score_to_pass}}"
+            data-bs-toggle = "modal"
+            data-bs-target = "#quizStartModal">
+            START
+          </button>
+          <br/>
+        </div>
+      </div>
+    </div>
+
     <div class = "col-8 col-lg-4 col-sm-6 col-md-4 col-xl-3">
       <div class="card mb-4">
         {%if obj.name == "math" %}
