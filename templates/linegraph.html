@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header %}
+  <div class="d-flex justify-content-center align-content-center title-css"> Quiz Performance </div>
+{% endblock header %}
+
+
+{% block content %}
+
+<div style="display: flex; justify-content: center; align-items: center; height: 60vh;">
+    <div style="width:70%;"> 
+        <canvas id="myChart"></canvas> <!-- Canvas for your chart --> 
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+    console.log("Hello")
+  const ctx = document.getElementById('myChart').getContext('2d');
+        var gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(255, 0,0, 0.5)');  
+        gradient.addColorStop(1, 'rgba(255, 0, 0, 0.1)');
+
+
+        var gradient2 = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient2.addColorStop(0, 'rgba(0, 255, 0, 0.5)');  
+        gradient2.addColorStop(1, 'rgba(0, 255, 0, 0.1)');
+
+        var gradient3 = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient3.addColorStop(0, 'rgba(128, 128, 128, 0.5)');  
+        gradient3.addColorStop(1, 'rgba(128, 128, 128, 0.1)');
+
+        var data = JSON.parse('{{ data | safe }}');    
+
+  new Chart(ctx, {
+      type: 'line',
+      data: {
+          labels: {{trial|safe}},
+          datasets: data.map(function(dataset) {
+            console.log(dataset.label)
+            console.log(dataset.data)
+            return {
+                label: dataset.label,
+                data: dataset.data,
+                // Add more properties here like backgroundColor, borderColor, etc.
+            };
+        })
+      },
+      options: {
+        scales: {
+        x: {
+            grid: {
+                color: 'black' // set the color of the x-axis grid lines
+            }
+        },
+        y: {
+            min: 0, // set the minimum value of the y-axis
+            max: 100, // set the maximum value of the y-axis
+            beginAtZero: true,
+            grid: {
+                color: 'black' // set the color of the y-axis grid lines
+            }
+        }
+      },
+        animation: {
+            duration: 2000,
+            easing: 'easeInOutCubic'
+        },
+        plugins: { // add a plugins option
+            tooltip: { // configure the tooltip
+                enabled: true,
+                mode: 'index',
+                intersect: false
+            },
+            legend: { // configure the legend
+                display: true,
+                position: 'top'
+            }
+        }
+      }
+  });
+  
+</script>
+{% endblock %}

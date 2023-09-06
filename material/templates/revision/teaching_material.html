@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block scripts %}
+    <script src = "{% static 'material/main.js' %}" defer></script>
+{% endblock scripts %}
+
+{% block title %}
+home
+{% endblock title%}
+
+{% block header %}
+  <div class="d-flex justify-content-center align-content-center title-css"> Teaching Material </div>
+{% endblock header %}
+
+{% block content %}
+  <!-- Modal -->
+  <div class="modal fade" id="quizStartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Start?</h5>
+          <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="modal-body-confirm"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">NO</button>
+          <button type="button" id ="start-button" class="btn btn-success">YES</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+<hr>
+<div class="row my-5 justify-content-center ">
+  {% for obj in object_list %}
+  <div class = "col-8 col-lg-4 col-sm-6 col-md-4 col-xl-3">
+    <div class="card mb-2">
+      <img src= {{obj.image}} class="card-img-top" alt="...">
+      
+      <div class="card-body text-center py-4">
+        <h2 class="card-title" style = "text-transform: capitalize;">{{obj.name}}</h2>
+          <!-- <p class="card-text">The total score required to pass will be {{obj.required_score_to_pass}}. Are you ready?</p> -->
+          <button
+            class="btn btn-outline-primary btn-lg mt-3 modal-button btn-color"
+            data-pk = "{{obj.pk}}"
+            data-quiz = "{{obj.name}}"
+            data-bs-toggle = "modal"
+            data-bs-target = "#quizStartModal">
+            Read
+          </button>
+          <br/>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock content %}
+

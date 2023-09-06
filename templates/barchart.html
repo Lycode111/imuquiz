@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+<div class="d-flex justify-content-center align-content-center title-css">Quiz Result</div>
+{% endblock header %}
+
+
+{% block content %} 
+<div style="display: flex; justify-content: center; align-items: center; height: 60vh;">
+    <div style="width:70%;"> 
+        <canvas id="myChart"></canvas> <!-- Canvas for your chart --> 
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script> const ctx = document.getElementById('myChart').getContext('2d'); 
+
+    var gradient = ctx.createLinearGradient(0, 0, 0, 400); 
+    gradient.addColorStop(0, 'rgba(255, 0,0, 0.9)');
+    gradient.addColorStop(1, 'rgba(255, 0, 0, 0.3)');
+
+    var gradient2 = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient2.addColorStop(0, 'rgba(0, 255, 0, 0.9)');   
+    gradient2.addColorStop(1, 'rgba(0, 255, 0, 0.3)');
+
+new Chart(ctx, { 
+        type: 'mixed', // change the type to ‘mixed’ 
+        data: { 
+            labels: {{labels|safe}}, 
+            datasets: [{ type: 'bar', // change the type of the first dataset to ‘line’ 
+                label: "Your Result", 
+                data: {{data|safe}}, 
+                backgroundColor: gradient, 
+                borderColor: 'rgba(255,99,132,1)', 
+                borderWidth: 1, 
+                pointBackgroundColor: 'white', // change the point background color to white 
+                pointBorderColor: 'black', // change the point border color to black 
+                pointBorderWidth: 2, // change the point border width to 2 
+                pointRadius: 5 // change the point radius to 5
+
+      },
+      {
+          type: 'bar', // change the type of the second dataset to 'radar'
+          label: "Passing Marks",
+          data: {{compare_data|safe}},
+          backgroundColor: gradient2,
+            borderColor: 'rgba(75,192,192,1)',
+            borderWidth: 1
+            
+      }]
+  },
+  options: {
+      scales: {
+        x: {
+            grid: {
+                color: 'lightblack' // set the color of the x-axis grid lines
+            }
+        },
+        y: {
+            min: 0, // set the minimum value of the y-axis
+            max: 100, // set the maximum value of the y-axis
+            beginAtZero: true,
+            grid: {
+                color: 'lightblack' // set the color of the y-axis grid lines
+            }
+        }
+      },
+      animation: { // add an animation option
+          duration: 2000, // set the duration to 2000 milliseconds
+          easing: 'easeInOutBounce' // set the easing to 'easeInOutBounce'
+      },
+      plugins: { // add a plugins option
+          tooltip: { // configure the tooltip
+              enabled: true,
+              mode: 'index',
+              intersect: false
+          },
+          legend: { // configure the legend
+              display: true,
+              position: 'top'
+          }
+      }
+  }
+
+}); 
+</script> 
+{% endblock %}

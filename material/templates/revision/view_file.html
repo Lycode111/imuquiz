@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block scripts %}
+<script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
+<script src ="{% static 'material/file.js' %}" defer></script>
+{% endblock scripts %}
+
+{% block header %}
+  <div class="d-flex justify-content-center align-content-center title-css"> {{obj.name}} </div>
+{% endblock header %}
+
+{% block content %}
+<button class="download-button" onclick="goBack()">Return</button>
+<button class="download-button" onclick="window.open('{{ obj.file.url }}')">Download</button>
+
+<script>
+    // Define a global JavaScript variable
+    var fileUrl = "{{ file_url }}";
+    var scale = 1;
+</script>
+
+<div id="pdf-container"></div>
+{% endblock content %}
