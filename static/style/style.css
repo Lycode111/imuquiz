@@ -36,18 +36,18 @@
 
 .nav-main-link {
     position: relative;
+    display: inline-block;
 }
 .nav-main-link::after {
     content: '';
-    display: inline-block;
-    opacity: 0;
-    transition: all 0.2;
     height: 2px;
     width: 100%;
     background-color: midnightblue;
     position: absolute;
     bottom: 1px;
     left: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
 }
 
 .nav-main-link:hover::after {
@@ -66,12 +66,12 @@
     background-color: midnightblue;
     position: relative;
     top: -9px;  
-    padding: 20px 0px;
+    padding: 17px 0px;
 }
 
 .title-css {
     font-family: 'Arial Black';
-    font-size: 3.5rem;
+    font-size: 3rem;
     padding-bottom: 2px;
     letter-spacing: 0.02em;
     text-align: center;
@@ -145,14 +145,6 @@
     color: white;
 }
 
-.next-button-css, .save-button-css {
-    border-radius: 50%;
-    border-width: 3.5px solid;
-    width: 3em;
-    aspect-ratio: 1/1;
-    padding: 0em 1.6em;
-    margin: 10px;
-}
 .bi-arrow-right-css {
     font-size: 36px;
 }
@@ -160,12 +152,8 @@
     font-size: 30px;
 }
 
-.quiz-preview {
-    width: 16rem;
-}
-
 .auth-card {
-    width: 350px;
+    width: 400px;
     margin-top: auto;
     margin-bottom: auto;
     /* background: #a5b8b9; */

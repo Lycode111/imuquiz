@@ -1,4 +1,8 @@
-console.log('hello world')
+$(document).ready(function () {
+    $(".nav li").removeClass("active");//this will remove the active class from  
+                                       //previously active menu item 
+    $('#home').addClass('active');
+  });
 
 const modalBtns = [...document.getElementsByClassName('modal-button')]
 const modalBody = document.getElementById('modal-body-confirm')

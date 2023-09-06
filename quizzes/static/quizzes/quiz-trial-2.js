@@ -10,6 +10,8 @@ const quizSubmitBtn = document.getElementById('submit-button')
 const quizForm = document.getElementById('quiz-form')
 const csrf = document.getElementsByName('csrfmiddlewaretoken')
 const explanationTab = document.getElementById('explanation-tab')
+const textTab = document.getElementById('text-explanation-tab-pane')
+const videoTab = document.getElementById('video-explanation-tab-pane')
 let quizAnswerBtn = null
 
 
@@ -49,8 +51,10 @@ $.ajax({
 
 const loadQuestions = () => {
     hideItems(quizSubmitBtn)
-    hideItems(nextBtn)
+    textTab.innerHTML = ''
+    videoTab.innerHTML = ''
     hideItems(explanationTab)
+    quizQuestion.scrollIntoView()
     
     let answer_set = null;
     let question_text = null;
@@ -78,10 +82,8 @@ const loadQuestions = () => {
         })
 
     } else {
-        quizBox.innerHTML =`
-            <div class="d-flex justify-content-center mb-2">
-                <h3>No more questions left!</h3>
-            </div>
+        quizQuestion.innerHTML =`
+            No more questions left!
         `
         hideItems(nextBtn)
         showItems(quizSubmitBtn)
@@ -103,12 +105,12 @@ const sendData = () => {
 
     //check which is clicked(question)
     elements.forEach(el=>{
-        console.log("checking send data")
-        console.log(el)
-        console.log(el.checked)
         if (el.checked){
             data[el.name] = el.value
             checkedAns[`${el.name}-checked`] = el.value
+            console.log("checking send data")
+            console.log(data)
+            console.log(checkedAns)
         } else {
             if (!data[el.name]){
                 data[el.name] = null
@@ -126,9 +128,7 @@ const endQuiz = () => {
         url: `${url}save/`,
         data: data,
         success: function(response){
-            console.log(response)
             const results = response.results
-            console.log(results)
             quizForm.classList.add('not-visible')
 
             scoreBox.innerHTML = `
@@ -138,13 +138,8 @@ const endQuiz = () => {
             `
 
             results.forEach(res=>{
-                console.log("check for res")
-                console.log(res)
                 const resDiv = document.createElement("div")
                 for (const [question, resp] of Object.entries(res)){
-                    console.log(question)
-                    console.log(resp)
-                    console.log('********')
 
                     // const initialClass = ['d-flex', 'justify-content-center']
                     // resDiv.classList.add(...initialClass)
@@ -191,10 +186,14 @@ quizSubmitBtn.addEventListener('click', (event) =>{
 
 nextBtn.addEventListener('click', (event) => {
     event.preventDefault();
-    sendData();
-    questionNo++;
-    quizAnswer.innerHTML = ''
-    loadQuestions();
+
+    if (textTab.innerHTML === ''){
+        saveQuiz()
+    } else {
+        questionNo++;
+        quizAnswer.innerHTML = ''
+        loadQuestions();
+    }
 })
 
 
@@ -202,7 +201,7 @@ const saveQuiz = () => {
     sendData()
     showItems(nextBtn)
     showItems(explanationTab)
-    quizQuestion.scrollIntoView()
+    quizAnswer.scrollIntoView()
     data['csrfmiddlewaretoken'] = csrf[0].value
 
     $.ajax({
@@ -213,6 +212,21 @@ const saveQuiz = () => {
             const results = response.results
             // quizForm.classList.add('not-visible')
             
+            //add explanation and video link
+            if (response.explanation !== '') {
+                textTab.innerHTML = `${response.explanation}`
+            } else {
+                textTab.innerHTML = `No explanation yet.`
+            }
+
+            if (response.explanation !== '') {
+                videoTab.innerHTML = `
+                    <a href="${response.video}" target="_blank">Click here to view video!</a>
+                `
+            } else {
+                videoTab.innerHTML = `No video link yet.`
+            }
+
             results.forEach(res=>{
                 const elements = [...document.getElementsByClassName('ans')]
 
@@ -223,6 +237,8 @@ const saveQuiz = () => {
                             if (el.name === question) {
                                 if (el.value === resp['correct_answer']) {
                                     el.nextElementSibling.classList.add('radio-btn-correct')
+                                } else {
+                                    el.nextElementSibling.classList.add('radio-btn-incorrect')
                                 }
                             }
                         } else {
@@ -231,7 +247,6 @@ const saveQuiz = () => {
                                     el.nextElementSibling.classList.add('radio-btn-correct')
                                 } else if (el.value === resp['answered']) {
                                     el.nextElementSibling.classList.add('radio-btn-incorrect')
-                                    console.log(el.nextElementSibling)
                                 }
                             }
                         }
