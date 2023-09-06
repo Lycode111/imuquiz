@@ -97,6 +97,7 @@
     height: 300px;
     object-fit: cover;
   }
+
 .card-title {
     height: 30px;
   }
@@ -120,8 +121,13 @@
     background-image: url('https://th.bing.com/th/id/OIP.sApBySYOMmSGWbbDE1qJJgHaH5?pid=ImgDet&rs=1'); /* set the background image of the card to a pattern */
     background-repeat: repeat; /* repeat the pattern */
     background-color: #dadada; /* set the background color of the card to pitch color */
+    display: flex;
+    flex-wrap: wrap;
 }
-.btn {rgb(0, 0, 0)rgb(173, 173, 173)
+
+.btn {
+    color: rgb(0, 0, 0); /* Set the text color to black */
+    background-color: rgb(173, 173, 173); /* Set the background color to a light gray */
     border-width: 1.6px; 
     font-weight: 500; 
     padding: 8px 20px; 
