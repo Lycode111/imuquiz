@@ -7,10 +7,8 @@
 
 
 {% block content %} 
-<div style="display: flex; justify-content: center; align-items: center; height: 60vh;">
-    <div style="width:70%;"> 
+<div style="display: block; margin: 0 auto; width: 70%;">
         <canvas id="myChart"></canvas> <!-- Canvas for your chart --> 
-    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -19,11 +17,11 @@
 
     var gradient = ctx.createLinearGradient(0, 0, 0, 400); 
     gradient.addColorStop(0, 'rgba(255, 0,0, 0.9)');
-    gradient.addColorStop(1, 'rgba(255, 0, 0, 0.3)');
+    gradient.addColorStop(1, 'rgba(255, 0, 0, 0.4)');
 
     var gradient2 = ctx.createLinearGradient(0, 0, 0, 400);
     gradient2.addColorStop(0, 'rgba(0, 255, 0, 0.9)');   
-    gradient2.addColorStop(1, 'rgba(0, 255, 0, 0.3)');
+    gradient2.addColorStop(1, 'rgba(0, 255, 0, 0.4)');
 
 new Chart(ctx, { 
         type: 'mixed', // change the type to ‘mixed’ 
@@ -54,23 +52,41 @@ new Chart(ctx, {
   options: {
       scales: {
         x: {
+            ticks: {
+                color: 'black' // set the color of the x-axis tick labels
+            },
+            title: {
+                display: true,
+                text: 'Quizzes',
+                color: 'black'
+            },
             grid: {
-                color: 'lightblack' // set the color of the x-axis grid lines
+                color: 'grey' // set the color of the x-axis grid lines
             }
         },
         y: {
             min: 0, // set the minimum value of the y-axis
             max: 100, // set the maximum value of the y-axis
             beginAtZero: true,
+            title: {
+                display: true,
+                text: 'Results(%)',
+                color: 'black'
+            },
+            ticks: {
+                color: 'black' // set the color of the y-axis tick labels
+            },
             grid: {
                 color: 'lightblack' // set the color of the y-axis grid lines
             }
         }
       },
+      
       animation: { // add an animation option
           duration: 2000, // set the duration to 2000 milliseconds
           easing: 'easeInOutBounce' // set the easing to 'easeInOutBounce'
       },
+
       plugins: { // add a plugins option
           tooltip: { // configure the tooltip
               enabled: true,
@@ -78,6 +94,9 @@ new Chart(ctx, {
               intersect: false
           },
           legend: { // configure the legend
+             labels: {
+                color: 'black'
+                },
               display: true,
               position: 'top'
           }

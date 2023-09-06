@@ -8,10 +8,8 @@
 
 {% block content %}
 
-<div style="display: flex; justify-content: center; align-items: center; height: 60vh;">
-    <div style="width:70%;"> 
+<div style="display: block; margin: 0 auto; width: 70%;">
         <canvas id="myChart"></canvas> <!-- Canvas for your chart --> 
-    </div>
 </div>
 
 
@@ -53,6 +51,14 @@
       options: {
         scales: {
         x: {
+            title: {
+                display: true,
+                text: 'Trials',
+                color: 'black'
+            },
+            ticks: {
+                color: 'black' // set the color of the x-axis tick labels
+            },
             grid: {
                 color: 'black' // set the color of the x-axis grid lines
             }
@@ -61,6 +67,14 @@
             min: 0, // set the minimum value of the y-axis
             max: 100, // set the maximum value of the y-axis
             beginAtZero: true,
+            title: {
+                display: true,
+                text: 'Results(%)',
+                color: 'black'
+            },
+            ticks: {
+                color: 'black' // set the color of the y-axis tick labels
+            },
             grid: {
                 color: 'black' // set the color of the y-axis grid lines
             }
@@ -77,6 +91,9 @@
                 intersect: false
             },
             legend: { // configure the legend
+                labels: {
+                color: 'black'
+                },
                 display: true,
                 position: 'top'
             }

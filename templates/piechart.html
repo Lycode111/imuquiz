@@ -27,24 +27,24 @@
   console.log(quiz.correct);
   const ctx = document.getElementById(id).getContext('2d');
         var gradient = ctx.createLinearGradient(0, 0, 0, 400);
-        gradient.addColorStop(0, 'rgba(255, 0,0, 0.5)');  
-        gradient.addColorStop(1, 'rgba(255, 0, 0, 0.1)');
+        gradient.addColorStop(0, 'rgba(255, 0,0, 0.7)');  
+        gradient.addColorStop(1, 'rgba(255, 0, 0, 0.3)');
 
 
         var gradient2 = ctx.createLinearGradient(0, 0, 0, 400);
-        gradient2.addColorStop(0, 'rgba(0, 255, 0, 0.5)');  
-        gradient2.addColorStop(1, 'rgba(0, 255, 0, 0.1)');
+        gradient2.addColorStop(0, 'rgba(0, 255, 0, 0.7)');  
+        gradient2.addColorStop(1, 'rgba(0, 255, 0, 0.3)');
 
         var gradient3 = ctx.createLinearGradient(0, 0, 0, 400);
-        gradient3.addColorStop(0, 'rgba(128, 128, 128, 0.5)');  
-        gradient3.addColorStop(1, 'rgba(128, 128, 128, 0.1)');
-
+        gradient3.addColorStop(0, 'rgba(128, 128, 128, 0.7)');  
+        gradient3.addColorStop(1, 'rgba(128, 128, 128, 0.3)');
+    console.log({{labels|safe}});
   new Chart(ctx, {
       type: 'pie',
       data: {
           labels: {{labels|safe}},
           datasets: [{
-              label: {{labels|safe}},
+              label: ["Total"],
               data: [quiz.correct,quiz.wrong,quiz.missed],
               backgroundColor: [gradient2,gradient,gradient3],
                 borderColor: ['rgba(75,192,192,1)','rgba(255,99,132,1)','rgba(128, 128, 128, 1)'],
@@ -64,6 +64,9 @@
                 intersect: false
             },
             legend: { // configure the legend
+                labels: {
+                color: 'black'
+                },
                 display: true,
                 position: 'top'
             },
