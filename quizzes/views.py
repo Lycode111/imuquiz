@@ -30,14 +30,23 @@ def quiz_view(request, pk):
 def quiz_data_view(request, pk):
     quiz = Quiz.objects.get(pk=pk)
     questions = []
+    diagrams = []
     for q in quiz.get_questions():
         answers = []
         for a in q.get_answers():
             answers.append(a.text)
+
         questions.append({str(q): answers})
+        if q.question_diagram:
+            diagrams.append({str(q): q.question_diagram.url})
+        else:
+            diagrams.append({str(q): ''})
+        print(questions)
+        print(diagrams)
     return JsonResponse({
         'data': questions,
         'time': quiz.time,
+        'diagrams': diagrams
     })
 
 def save_quiz_view(request, pk):
@@ -48,8 +57,8 @@ def save_quiz_view(request, pk):
         data_.pop('csrfmiddlewaretoken')
         for k in data_.keys():
             question = Question.objects.filter(text=k).first()
-            explanation = Question.objects.filter(text=k).first().explanation
-            video = Question.objects.filter(text=k).first().video
+            explanation_text = Question.objects.filter(text=k).first().explanation_text
+            explanation_video = Question.objects.filter(text=k).first().explanation_video
             if question not in questions:
                 questions.append(question)
 
@@ -110,7 +119,7 @@ def save_quiz_view(request, pk):
         user_result.save()
 
         if score_ >= quiz.required_score_to_pass:
-            return JsonResponse({'passed': True, 'score':score_, 'results':results, 'video':video, 'explanation':explanation})
+            return JsonResponse({'passed': True, 'score':score_, 'results':results, 'explanation_video':explanation_video, 'explanation_text':explanation_text})
         else:
             return JsonResponse({'passed':False, 'score':score_, 'results':results})
 
