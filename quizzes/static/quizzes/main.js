@@ -25,7 +25,6 @@ modalBtns.forEach(modalBtn=> modalBtn.addEventListener('click',()=>{
                 <li>Difficulty: <b style="text-transform: uppercase;">${difficulty}</b></li>
                 <li>Number of Questions: <b>${numQuestions}</b></li>
                 <li>Passing Score: <b>${scoreToPass}%</b></li>
-                <li>Time Limit: <b>${time} minute</b></li>
             </ul>
         </div>
     `

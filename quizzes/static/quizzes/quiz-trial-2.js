@@ -6,6 +6,7 @@ const quizQuestion = document.getElementById('quiz-question')
 const scoreBox = document.getElementById('score-box')
 const resultBox = document.getElementById('result-box')
 const nextBtn = document.getElementById('next-button')
+const homeBtn = document.getElementById('home-button')
 const quizSubmitBtn = document.getElementById('submit-button')
 const quizForm = document.getElementById('quiz-form')
 const csrf = document.getElementsByName('csrfmiddlewaretoken')
@@ -51,6 +52,7 @@ $.ajax({
 
 const loadQuestions = () => {
     hideItems(quizSubmitBtn)
+    hideItems(homeBtn)
     textTab.innerHTML = ''
     videoTab.innerHTML = ''
     hideItems(explanationTab)
@@ -133,7 +135,10 @@ const endQuiz = () => {
 
             scoreBox.innerHTML = `
                 <h3>
-                    ${response.passed ? 'Congratulations! ': 'Oops ... :( '}Your result is ${response.score.toFixed(2)}%
+                    ${response.passed ? 'Congratulations! ': 'Oops ... :( '} 
+                </h3>
+                <h3>
+                    Your result is ${response.score.toFixed(2)}%
                 </h3>
             `
 
@@ -182,6 +187,7 @@ const endQuiz = () => {
 quizSubmitBtn.addEventListener('click', (event) =>{
     event.preventDefault()
     endQuiz()
+    showItems(homeBtn)
 })
 
 nextBtn.addEventListener('click', (event) => {
@@ -194,6 +200,10 @@ nextBtn.addEventListener('click', (event) => {
         quizAnswer.innerHTML = ''
         loadQuestions();
     }
+})
+
+homeBtn.addEventListener('click', (event) =>{
+    window.location.href = '/';
 })
 
 

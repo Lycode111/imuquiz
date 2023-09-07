@@ -112,6 +112,17 @@
     cursor: pointer; /* Change the cursor to a pointer when hovering over the button */
 }
 
+.home-button {
+    margin-top:10px;
+    margin-bottom: 10px; /* Add 20px of space below the button */
+    margin-left: 10px;
+    padding: 5px 5px; /* Add some padding to the button */
+    background-color: #f1f1f1; /* Set the background color of the button */
+    color: rgb(0, 0, 0); /* Set the text color of the button */
+    border: 2px solid rgb(0, 0, 0); /* Remove the border from the button */
+    cursor: pointer; /* Change the cursor to a pointer when hovering over the button */
+}
+
 .download-button:hover {
     background-color: #575857;/* Change the background color of the button when hovering */
     color: rgb(255, 255, 255); 
