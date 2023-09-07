@@ -2,16 +2,15 @@
 {% load static %}
 
 {% block scripts %}
-    <script src = "{% static 'quizzes/main.js' %}" defer></script>
+    <script src = "{% static 'material/main.js' %}" defer></script>
 {% endblock scripts %}
 
 {% block title %}
 home
 {% endblock title%}
 
-
 {% block header %}
-  <div class="d-flex justify-content-center align-content-center title-css">Quiz List</div>
+  <div class="d-flex justify-content-center align-content-center title-css"> Teaching Material </div>
 {% endblock header %}
 
 {% block content %}
@@ -33,26 +32,22 @@ home
   </div>
  
 <hr>
-<div class="row py-4 px-5 justify-content-center">
+<div class="row my-5 justify-content-center ">
   {% for obj in object_list %}
-    <div class = "col-8 col-lg-4 col-sm-6 col-md-4 col-xl-3">
-      <div class="card mb-2 quiz-preview-css">
-        <img src= {{obj.image}} class="card-img-top" alt="...">
-        
-        <div class="card-body text-center py-4">
-          <h2 class="card-title" style = "text-transform: capitalize;">{{obj.name}}</h2>
+  <div class = "col-8 col-lg-4 col-sm-6 col-md-4 col-xl-3">
+    <div class="card mb-2">
+      <img src= {{obj.image}} class="card-img-top" alt="...">
+      
+      <div class="card-body text-center py-4">
+        <h2 class="card-title" style = "text-transform: capitalize;">{{obj.name}}</h2>
           <!-- <p class="card-text">The total score required to pass will be {{obj.required_score_to_pass}}. Are you ready?</p> -->
           <button
             class="btn btn-outline-primary btn-lg mt-3 modal-button btn-color"
             data-pk = "{{obj.pk}}"
             data-quiz = "{{obj.name}}"
-            data-questions = "{{obj.number_of_questions}}"
-            data-difficulty = "{{obj.difficluty}}"
-            data-time = "{{obj.time}}"
-            data-pass = "{{obj.required_score_to_pass}}"
             data-bs-toggle = "modal"
             data-bs-target = "#quizStartModal">
-            START
+            Read
           </button>
           <br/>
         </div>
@@ -61,3 +56,4 @@ home
   {% endfor %}
 </div>
 {% endblock content %}
+

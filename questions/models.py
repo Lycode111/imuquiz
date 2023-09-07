@@ -7,11 +7,12 @@ class Question(models.Model):
     #imported from other file
     #CASCADE means When the referenced object is deleted, also delete the objects that have a foreign key pointing to it.
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    question_diagram = models.ImageField(null=True, blank=True, upload_to="diagram/")
     #models functions
     #can add to quiz to know when is the quiz created
     created = models.DateTimeField(auto_now_add=True)
-    explanation = models.CharField(max_length=1000, blank=True)
-    video = models.URLField(max_length=200, blank=True)
+    explanation_text = models.CharField(max_length=1000, blank=True)
+    explanation_video = models.URLField(max_length=200, blank=True)
     
     #return text
     def __str__(self):

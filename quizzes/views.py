@@ -3,7 +3,7 @@ from .models import Quiz
 from django.views.generic import ListView
 from django.http import JsonResponse
 from questions.models import Question,Answer
-from results.models import Result
+from results.models import Result,Analysis,UserResult
 
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -30,14 +30,23 @@ def quiz_view(request, pk):
 def quiz_data_view(request, pk):
     quiz = Quiz.objects.get(pk=pk)
     questions = []
+    diagrams = []
     for q in quiz.get_questions():
         answers = []
         for a in q.get_answers():
             answers.append(a.text)
+
         questions.append({str(q): answers})
+        if q.question_diagram:
+            diagrams.append({str(q): q.question_diagram.url})
+        else:
+            diagrams.append({str(q): ''})
+        print(questions)
+        print(diagrams)
     return JsonResponse({
         'data': questions,
         'time': quiz.time,
+        'diagrams': diagrams
     })
 
 def save_quiz_view(request, pk):
@@ -48,17 +57,21 @@ def save_quiz_view(request, pk):
         data_.pop('csrfmiddlewaretoken')
         for k in data_.keys():
             question = Question.objects.filter(text=k).first()
-            explanation = Question.objects.filter(text=k).first().explanation
-            video = Question.objects.filter(text=k).first().video
+            explanation_text = Question.objects.filter(text=k).first().explanation_text
+            explanation_video = Question.objects.filter(text=k).first().explanation_video
             if question not in questions:
                 questions.append(question)
 
         user = request.user
         quiz = Quiz.objects.get(pk=pk)
-
         score = 0 
+        num_all_questions = quiz.number_of_questions
         multiplier = 100 / quiz.number_of_questions
         results = []
+        got_correct_answer=[]
+        missed_question = 0
+        num_correct_answer = 0
+        num_wrong_answer = 0
         correct_answer = None
 
         for q in questions:
@@ -70,9 +83,12 @@ def save_quiz_view(request, pk):
                         if a.correct:
                             score += 1
                             correct_answer = a.text
+                            num_correct_answer += 1
+                            
                     else:
                         if a.correct:
                             correct_answer = a.text
+                            num_wrong_answer +=1
                     
                 results.append({str(q):{'correct_answer': correct_answer,'answered': a_selected}})
             else:
@@ -82,14 +98,31 @@ def save_quiz_view(request, pk):
                         correct_answer = a.text
                 # results.append({str(q): 'not answered'})
                 results.append({str(q): {'correct_answer': correct_answer,'answered': 'not answered'}})
+                missed_question += 1
         
         score_ = score * multiplier
-        Result.objects.create(quiz= quiz, user=user, score=score_)
+        Result.objects.create(quiz= quiz.name, user=user, score=score_)
+
+        user_analysis, created = Analysis.objects.get_or_create(user=user, quiz=quiz)
+        # Update the existing UserResult object
+        user_analysis.total_questions=num_all_questions
+        user_analysis.correct_questions=num_correct_answer
+        user_analysis.wrong_questions = num_wrong_answer
+        user_analysis.skipped_questions= missed_question
+        user_analysis.save()
+
+
+        user_result, created = UserResult.objects.get_or_create(user=user, quiz=quiz)
+        # Update the existing UserResult object
+        user_result.score = score_
+        user_result.required_score = quiz.required_score_to_pass
+        user_result.save()
 
         if score_ >= quiz.required_score_to_pass:
-            return JsonResponse({'passed': True, 'score':score_, 'results':results, 'video':video, 'explanation':explanation})
+            return JsonResponse({'passed': True, 'score':score_, 'results':results, 'explanation_video':explanation_video, 'explanation_text':explanation_text})
         else:
-            return JsonResponse({'passed':False, 'score':score_, 'results':results, 'video':video, 'explanation':explanation})
+            return JsonResponse({'passed':False, 'score':score_, 'results':results})
+
 
 
 #registration related function views

@@ -6,6 +6,7 @@ const quizQuestion = document.getElementById('quiz-question')
 const scoreBox = document.getElementById('score-box')
 const resultBox = document.getElementById('result-box')
 const nextBtn = document.getElementById('next-button')
+const homeBtn = document.getElementById('home-button')
 const quizSubmitBtn = document.getElementById('submit-button')
 const quizForm = document.getElementById('quiz-form')
 const csrf = document.getElementsByName('csrfmiddlewaretoken')
@@ -36,7 +37,13 @@ $.ajax({
             if (question_set.length == 0){
                 question_data.forEach(el => {
                     for (const [question, answers] of Object.entries(el)){
-                        question_set.push([question, answers])
+                        response.diagrams.forEach(diagram_element => {
+                            for (const [diagram_question, diagram] of Object.entries(diagram_element)) {
+                                if (diagram_question === question) {
+                                    question_set.push([question, answers, diagram])
+                                }
+                            }
+                        })
                     }
                 });
             }
@@ -51,6 +58,7 @@ $.ajax({
 
 const loadQuestions = () => {
     hideItems(quizSubmitBtn)
+    hideItems(homeBtn)
     textTab.innerHTML = ''
     videoTab.innerHTML = ''
     hideItems(explanationTab)
@@ -60,11 +68,32 @@ const loadQuestions = () => {
     let question_text = null;
 
     if (questionNo < question_set.length){
-        answer_set = question_set[questionNo][1];
         question_text = question_set[questionNo][0];
-        quizQuestion.innerHTML =`
-                Q${questionNo + 1} : ${question_text}
-        `
+        answer_set = question_set[questionNo][1];
+        question_diagram = question_set[questionNo][2];
+
+        if (question_diagram !== ''){
+            quizQuestion.innerHTML = `
+            <div>
+                <div class="d-flex row justify-content-center">
+                    <div class="col-7 col-sm-auto col-md-4">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <img src="${question_diagram}" style="max-width:100%">
+                        </div>
+                    </div>
+                    <div class="d-flex col-7 col-sm-auto col-md-8">
+                        Q${questionNo + 1} : ${question_text} 
+                    </div>
+                </div>
+            </div>
+            `
+        } else {
+            quizQuestion.innerHTML =`
+                <div class="d-flex justify-content-center">
+                    Q${questionNo + 1} : ${question_text}
+                </div>
+            `
+        }
 
         answer_set.forEach(answer=>{
             quizAnswer.innerHTML += `
@@ -133,7 +162,10 @@ const endQuiz = () => {
 
             scoreBox.innerHTML = `
                 <h3>
-                    ${response.passed ? 'Congratulations! ': 'Oops ... :( '}Your result is ${response.score.toFixed(2)}%
+                    ${response.passed ? 'Congratulations! ': 'Oops ... :( '} 
+                </h3>
+                <h3>
+                    Your result is ${response.score.toFixed(2)}%
                 </h3>
             `
 
@@ -182,6 +214,7 @@ const endQuiz = () => {
 quizSubmitBtn.addEventListener('click', (event) =>{
     event.preventDefault()
     endQuiz()
+    showItems(homeBtn)
 })
 
 nextBtn.addEventListener('click', (event) => {
@@ -194,6 +227,10 @@ nextBtn.addEventListener('click', (event) => {
         quizAnswer.innerHTML = ''
         loadQuestions();
     }
+})
+
+homeBtn.addEventListener('click', (event) =>{
+    window.location.href = '/';
 })
 
 
@@ -213,15 +250,15 @@ const saveQuiz = () => {
             // quizForm.classList.add('not-visible')
             
             //add explanation and video link
-            if (response.explanation !== '') {
-                textTab.innerHTML = `${response.explanation}`
+            if (response.explanation_text !== '') {
+                textTab.innerHTML = `${response.explanation_text}`
             } else {
                 textTab.innerHTML = `No explanation yet.`
             }
 
-            if (response.explanation !== '') {
+            if (response.explanation_video !== '') {
                 videoTab.innerHTML = `
-                    <a href="${response.video}" target="_blank">Click here to view video!</a>
+                    <a href="${response.explanation_video}" target="_blank">Click here to view video!</a>
                 `
             } else {
                 videoTab.innerHTML = `No video link yet.`

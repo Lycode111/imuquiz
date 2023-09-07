@@ -22,6 +22,7 @@ body {
 .question-container {
     width: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     font-size: 30px;
     font-weight: 500;

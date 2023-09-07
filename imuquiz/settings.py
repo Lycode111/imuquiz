@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'quizzes', 
     'questions',
     'results',
+    'material',
 ]
 
 MIDDLEWARE = [
@@ -125,6 +126,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
+
+MEDIA_ROOT = BASE_DIR / 'media'
 
 #where we will keep our static files
 STATICFILES_DIRS = [
