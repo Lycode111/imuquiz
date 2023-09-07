@@ -13,7 +13,7 @@ class Quiz(models.Model):
     name = models.CharField(max_length=120)
     topic = models.CharField(max_length=120) 
     number_of_questions = models.IntegerField()
-    image = models.URLField(default='')
+    image = models.URLField(default='', blank=True)
     time = models.IntegerField(help_text='Duration of the quiz in minutes')
     required_score_to_pass = models.IntegerField(help_text='score in %')
     difficluty = models.CharField(max_length=6, choices=DIFF_CHOICES)

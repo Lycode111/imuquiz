@@ -18,9 +18,6 @@ def display_file(request, pk):
     obj = Revision.objects.get(pk=pk)
     # Return a FileResponse to serve the file
     file_url = obj.file.url
-    print(obj.file)
-    print(obj.file.url)
-    print(file_url)
 
     return render(request, 'revision/view_file.html',{'obj':obj,'file_url': file_url})
 

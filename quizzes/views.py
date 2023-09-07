@@ -41,8 +41,6 @@ def quiz_data_view(request, pk):
             diagrams.append({str(q): q.question_diagram.url})
         else:
             diagrams.append({str(q): ''})
-        print(questions)
-        print(diagrams)
     return JsonResponse({
         'data': questions,
         'time': quiz.time,

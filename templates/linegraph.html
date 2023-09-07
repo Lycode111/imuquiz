@@ -17,7 +17,6 @@
 
 
 <script>
-    console.log("Hello")
   const ctx = document.getElementById('myChart').getContext('2d');
         var gradient = ctx.createLinearGradient(0, 0, 0, 400);
         gradient.addColorStop(0, 'rgba(255, 0,0, 0.5)');  
@@ -39,8 +38,6 @@
       data: {
           labels: {{trial|safe}},
           datasets: data.map(function(dataset) {
-            console.log(dataset.label)
-            console.log(dataset.data)
             return {
                 label: dataset.label,
                 data: dataset.data,

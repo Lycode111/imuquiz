@@ -9,7 +9,6 @@ def index_bar(request):
     required_score =[]
     quiz = []
     quiz = Quiz.objects.order_by('name').values('name').distinct()
-    print(quiz)
     quiz_list = [item['name'] for item in quiz]
     trials = UserResult.objects.filter(user=user)
     for trial in trials:
@@ -42,9 +41,7 @@ def index_line(request):
     user = request.user
     trials = Result.objects.filter(user=user)
     quizzes = Quiz.objects.order_by('name').values('name').distinct()
-    print(quizzes)
     quizzes_list = [item['name'] for item in quizzes]
-    print(quizzes_list)
     data=[]
     user_trial2 = []
     
@@ -53,9 +50,7 @@ def index_line(request):
         score=[0]
         user_trial=[0]
         for trial in trials:
-            print(trial.quiz)
             if  trial.quiz == quiz:
-                print("hello")
                 score.append(trial.score) 
                 user_trial.append(num)
                 num+=1
@@ -68,7 +63,6 @@ def index_line(request):
             'data' : score
         }
         data.append(x)
-        print(data)
 
     return render(request, 'linegraph.html', 
                   {'data': json.dumps(data),

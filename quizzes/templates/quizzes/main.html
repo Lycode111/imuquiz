@@ -37,7 +37,12 @@ home
   {% for obj in object_list %}
     <div class = "col-8 col-lg-4 col-sm-6 col-md-4 col-xl-3">
       <div class="card mb-2 quiz-preview-css">
-        <img src= {{obj.image}} class="card-img-top" alt="...">
+        {%if obj.image != ''%}  
+            <img src= {{obj.image}} class="card-img-top" alt="...">
+        {%else%}
+            <img src="{% static 'media/7290753.jpg' %}"  class="card-img-top" alt="...">
+        {% endif %}
+        
         
         <div class="card-body text-center py-4">
           <h2 class="card-title" style = "text-transform: capitalize;">{{obj.name}}</h2>
