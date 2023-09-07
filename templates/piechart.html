@@ -9,7 +9,7 @@
 
 <div class="chart-container">
     
-    {% for quiz in "quizzes" %}
+    {% for quiz in quizzes %}
     <div class="chart">
         <canvas id="chart{{ forloop.counter }}"></canvas>
     </div>
@@ -23,8 +23,6 @@
 
 <script>
   function createChart(id,quiz) {
-  console.log(quiz);
-  console.log(quiz.correct);
   const ctx = document.getElementById(id).getContext('2d');
         var gradient = ctx.createLinearGradient(0, 0, 0, 400);
         gradient.addColorStop(0, 'rgba(255, 0,0, 0.7)');  
